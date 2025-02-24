@@ -29,3 +29,33 @@ class LinearRegression:
         :return: list
         """
         return self.slope * np.array(x) + self.bias
+
+
+class KNeighborsRegressor:
+    def __init__(self, k=3):
+        self.k = k
+        self.X_train = None
+        self.y_train = None
+
+    def fit(self, X, y):
+        """
+        저장된 데이터로 모델을 학습
+        :param X: 독립 변수 (특징)
+        :param y: 종속 변수 (타겟 값)
+        """
+        self.X_train = np.array(X)
+        self.y_train = np.array(y)
+
+    def predict(self, X):
+        """
+        새로운 입력 데이터에 대한 예측 수행
+        :param X: 예측할 입력 데이터
+        :return: 예측된 값
+        """
+        predictions = []
+        for x in X:
+            distances = np.sqrt(np.sum((self.X_train - x) ** 2, axis=1))
+            nearest_indices = np.argsort(distances)[:self.k]
+            nearest_values = self.y_train[nearest_indices]
+            predictions.append(np.mean(nearest_values))
+        return np.array(predictions)
