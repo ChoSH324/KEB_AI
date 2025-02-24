@@ -52,10 +52,9 @@ class KNeighborsRegressor:
         :param X: 예측할 입력 데이터
         :return: 예측된 값
         """
-        predictions = []
         for x in X:
             distances = np.sqrt(np.sum((self.X_train - x) ** 2, axis=1))
             nearest_indices = np.argsort(distances)[:self.k]
             nearest_values = self.y_train[nearest_indices]
-            predictions.append(np.mean(nearest_values))
+            predictions=np.mean(nearest_values)
         return np.array(predictions)
