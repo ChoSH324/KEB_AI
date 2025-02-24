@@ -1,28 +1,18 @@
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
 
-df = pd.DataFrame(
-    {"a" :[4, 7 , 10],
-     "b" : [5, 88, 11],
-     "c" : [16, 9, 12]},
-    index = [1, 2, 3]
-    )
-# print('df',df)
+data_root = "https://github.com/ageron/data/raw/main/"
+ls=pd.read_csv(data_root + "lifesat/lifesat.csv")
+X = ls[["GDP per capita (USD)"]].values
+y = ls[["Life satisfaction"]].values
 
-# print(pd.melt(df))
-# df2=(pd.melt(df).rename(columns={'variable':'var','value':'val'}).query('val > 10').sort_values('val'))
-# print(df2)
+ls.plot(kind = 'scatter',grid = True, x="GDP per capita (USD)", y ="Life satisfaction")
+plt.axis([23_500, 62_500, 4, 9])
+plt.show()
+model = LinearRegression()
+model.fit(X,y)
 
-# df3 = df.iloc[1:2]
-df3 = df.iloc[:,[0,2]]
-print(df3)
-
-df4=df.loc[1:2]
-print(df4)
-
-def square(n)->int:
-    return n*n
-
-
-print(df.apply(square))
-# print(df.apply(lambda x : x* x))
+X_new=[[37_655.2]]
+print(model.predict(X_new))
