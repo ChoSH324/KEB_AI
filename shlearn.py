@@ -1,12 +1,12 @@
 import numpy as np
 
+
 class LinearRegression:
     def __init__(self):
         self.slope = None
         self.bias = None
 
-
-    def fit(self,x,y):
+    def fit(self, x, y):
         """
         learning function
         :param x: independent variable
@@ -16,13 +16,13 @@ class LinearRegression:
         X_mean = np.mean(x)
         y_mean = np.mean(y)
 
-        denominator = np.sum(pow(x-X_mean, 2))
-        numerator = np.sum((x-X_mean)*(y-y_mean))
+        denominator = np.sum(pow(x - X_mean, 2))
+        numerator = np.sum((x - X_mean) * (y - y_mean))
 
         self.slope = numerator / denominator
-        self.bias = y_mean - (self.slope*X_mean)
+        self.bias = y_mean - (self.slope * X_mean)
 
-    def predict(self,x) :
+    def predict(self, x):
         """
         predict value for input (x)
         :param x:
@@ -52,9 +52,11 @@ class KNeighborsRegressor:
         :param X: 예측할 입력 데이터
         :return: 예측된 값
         """
+        predictions = []
         for x in X:
             distances = np.sqrt(np.sum((self.X_train - x) ** 2, axis=1))
             nearest_indices = np.argsort(distances)[:self.k]
             nearest_values = self.y_train[nearest_indices]
-            predictions=np.mean(nearest_values)
+            prediction = np.mean(nearest_values)
+            predictions.append(prediction)
         return np.array(predictions)
