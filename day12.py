@@ -4,9 +4,9 @@ from sklearn.impute import SimpleImputer
 import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
+from sklearn.gaussian_process import GaussianProcessClassifier
 from sklearn.metrics import mean_squared_error, r2_score
-from sklearn.neighbors import KNeighborsRegressor
+from sklearn.neighbors import KNeighborsClassifier
 
 # df = pd.DataFrame(
 #     {
@@ -40,9 +40,9 @@ y = titanic.loc[X.index, 'survived']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-model = LinearRegression()
+model = GaussianProcessClassifier()
 model.fit(X_train,y_train)
-model2 = KNeighborsRegressor()
+model2 = KNeighborsClassifier()
 model2.fit(X_train,y_train)
 
 def evaluate_model(model, X, y, model_name):
@@ -64,5 +64,5 @@ def evaluate_model(model, X, y, model_name):
     plt.legend()
     plt.show()
 
-evaluate_model(model, X_test, y_test, "Linear Regression")
+evaluate_model(model, X_test, y_test, "GaussianProcessClassifier")
 evaluate_model(model2, X_test, y_test, "KNN Regressor")
