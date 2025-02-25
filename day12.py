@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from sklearn.impute import SimpleImputer
 import seaborn as sns
+import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
@@ -51,7 +52,17 @@ def evaluate_model(model, X, y, model_name):
     print(f"{model_name}:")
     print(f"  MSE: {mse:.4f}")
     print(f"  R2: {r2:.4f}")
-    print(y_pred)
+
+
+    # Visualization
+    plt.figure(figsize=(8, 5))
+    sns.scatterplot(x=X.squeeze(), y=y, label='Actual', alpha=0.6)
+    sns.scatterplot(x=X.squeeze(), y=y_pred, label='Predicted', alpha=0.6)
+    plt.xlabel("Age")
+    plt.ylabel("Survived")
+    plt.title(f"{model_name} - Actual vs Predicted")
+    plt.legend()
+    plt.show()
 
 evaluate_model(model, X_test, y_test, "Linear Regression")
 evaluate_model(model2, X_test, y_test, "KNN Regressor")
