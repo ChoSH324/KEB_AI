@@ -45,6 +45,11 @@ def evaluate_model(model, X, y, model_name):
     min_val = min(y.min(), y_pred.min())
     max_val = max(y.max(), y_pred.max())
     plt.plot([min_val, max_val], [min_val, max_val], 'r--', lw=2)
+    plt.xlabel('Actual Values')
+    plt.ylabel('Predicted Values')
+    plt.xlim(min_val, max_val)
+    plt.ylim(min_val, max_val)
+    plt.grid(True, linestyle='--', alpha=0.7)
     plt.show()
 
 
