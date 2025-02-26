@@ -40,9 +40,17 @@ def evaluate_model(model, X, y, model_name):
     print(f"  MSE: {mse:.4f}")
     print(f"  R2: {r2:.4f}")
 
+    plt.figure(figsize=(10, 10))
+    plt.scatter(y, y_pred, alpha=0.5)
+    min_val = min(y.min(), y_pred.min())
+    max_val = max(y.max(), y_pred.max())
+    plt.plot([min_val, max_val], [min_val, max_val], 'r--', lw=2)
+    plt.show()
+
 
 model = LinearRegression()
 model.fit(X_train_scaled, y_train)
 
 evaluate_model(model, X_test_scaled, y_test, "Linear")
+
 
